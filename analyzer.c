@@ -10,7 +10,7 @@ int main (){
 	file = fopen("../lexicalAnalyzer/output.txt", "r");
 	lexeme_queue = create();
 
-	while(fscanf(file, token) != EOF){
+	while(fscanf(file, "%s", token) != EOF){
 		printf("%s\n", token);
 		enqueue(lexeme_queue, token);
 	}
