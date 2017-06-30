@@ -13,20 +13,24 @@ bool in_wait(char *token, queue *lex_queue){
 	}
 }
 
-void program(queue *lex_queue){
-	in_wait("t_program", lex_queue);
-	in_wait("t_id", lex_queue);
-	in_wait("t_pv ", lex_queue);
+void program(queue *lex_queue, FILE *translation){
+	if (in_wait("t_program", lex_queue) &&
+		in_wait("t_id", lex_queue)		&&
+		in_wait("t_pv ", lex_queue)		){
+
+		fprintf(translation, "int main(){\n");
+	}
 }
 
 int main (){
 	//Definitions
-	FILE *file;
+	FILE *file, *translation;
 	char token[10];
 	queue *lexeme_queue;
 
 	//Statements
 	file = fopen("../lexicalAnalyzer/output.txt", "r");
+	translation = fopen("code.txt", "a");
 	lexeme_queue = create();
 
 	while(fscanf(file, "%s", token) != EOF){
@@ -35,7 +39,7 @@ int main (){
 	}
 	fclose(file);
 
-	program(lexeme_queue);
+	program(lexeme_queue, translation);
 
 	return 0;
 }
