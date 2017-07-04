@@ -13,12 +13,36 @@ bool in_wait(char *token, queue *lex_queue){
 	}
 }
 
+bool var_decl(queue *lex_queue, FILE *translation){
+	if (in_wait("t_var", lex_queue) 	&&
+		in_wait("t_id", lex_queue)		&&
+		in_wait("t_dp", lex_queue)		&&
+		in_wait("t_integer", lex_queue)	&&
+		in_wait("t_pv ", lex_queue)		){
+
+		fprintf(translation, "  int z;\n");
+		return true;		
+	}
+	return false;
+}
+
+bool statements(queue *lex_queue, FILE *translation){
+	return true;
+}
+
 void program(queue *lex_queue, FILE *translation){
 	if (in_wait("t_program", lex_queue) &&
 		in_wait("t_id", lex_queue)		&&
 		in_wait("t_pv ", lex_queue)		){
 
 		fprintf(translation, "int main(){\n");
+
+		if (var_decl(lex_queue, translation)	&&
+			statements(lex_queue, translation)	){
+			
+			fprintf(translation, "  return 0;\n}\n");
+		}
+		
 	}
 }
 
