@@ -18,7 +18,7 @@ bool var_decl(queue *lex_queue, FILE *translation){
 		in_wait("t_id", lex_queue)		&&
 		in_wait("t_dp", lex_queue)		&&
 		in_wait("t_integer", lex_queue)	&&
-		in_wait("t_pv ", lex_queue)		){
+		in_wait("t_pv", lex_queue)		){
 
 		fprintf(translation, "  int z;\n");
 		return true;		
@@ -33,7 +33,7 @@ bool statements(queue *lex_queue, FILE *translation){
 void program(queue *lex_queue, FILE *translation){
 	if (in_wait("t_program", lex_queue) &&
 		in_wait("t_id", lex_queue)		&&
-		in_wait("t_pv ", lex_queue)		){
+		in_wait("t_pv", lex_queue)		){
 
 		fprintf(translation, "int main(){\n");
 
